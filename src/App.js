@@ -1,32 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { connect } from 'react-redux';
-import { activateGeod } from './redux';
+import {connect} from 'react-redux';
+import {activateGeod} from './redux';
 
-import {
-    BrowserRouter as Router,
-    Route,
-    Link,
-    NavLink,
-    Redirect,
-    withRouter,
-    Switch
-} from "react-router-dom";
+import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 
 
 import _ from 'lodash';
 
-import { getDistanceFromLatLonInKm } from './services/LocationProximity';
-import { PostData } from './services/PostData';
+import {getDistanceFromLatLonInKm} from './services/LocationProximity';
+import {PostData} from './services/PostData';
 
 import './App.css';
 
 
 import logo from './user-image.svg';
-
-
-
 
 
 import IconWC from './bathroom.svg';
@@ -36,7 +25,6 @@ import IconMechanic from './wrench.svg';
 import IconRestaurant from './restaurant.svg';
 import IconTireRepair from './tirerepair.svg';
 import IconParkSpot from './parking-sign.svg';
-
 
 
 var ICONS = {
@@ -60,7 +48,7 @@ var ICONS = {
 const STATIONS = {};
 var COMPANIES = {};
 
-const AUTH_KEY = "AUTH_KEY=FPh76g0MSZ2okeWQmShYDlXakjgjhbej";
+const AUTH_KEY = "AUTH_KEY=Ph76g0MSZ2okeWQmShYDlXakjgjhbe";
 
 
 
