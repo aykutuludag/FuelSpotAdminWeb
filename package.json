@@ -4,17 +4,13 @@
   "homepage": "http://localhost:3000/admin",
   "private": true,
   "dependencies": {
-    "bootstrap": "^4.3.1",
-    "cors": "^2.8.5",
-    "jquery": "^3.3.1",
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
+    "lodash": "4.17.11",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
     "react-redux": "^5.1.1",
-    "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.1.5",
-    "redux": "^4.0.1",
-    "underscore": "^1.9.1"
+    "redux": "^4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

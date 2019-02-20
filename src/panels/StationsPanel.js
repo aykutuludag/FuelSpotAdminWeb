@@ -104,10 +104,10 @@ class IdView extends React.Component {
     render() {
 
         return (
-            <div class="panel panel-b-wide">
+            <div className="panel panel-b-wide">
                 <div className="form-group row panel-id">
-                    <label class="col-12 col-form-label">İSTASYON ID</label>
-                    <div class="col-12">
+                    <label className="col-12 col-form-label">İSTASYON ID</label>
+                    <div className="col-12">
                         <input name="stationID" type="number" className="form-control form-control-lg" min="0" step="1"
                                onChange={this.change} defaultValue="0"/>
                     </div>
@@ -281,11 +281,8 @@ class PassiveFilter extends React.Component {
                     class="btn btn-block btn-primary"
                 />
             </div>
-
         );
-
     }
-
 }
 
 export default StationsPanel

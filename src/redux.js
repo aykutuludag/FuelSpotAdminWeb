@@ -1,14 +1,10 @@
 import {combineReducers, createStore} from 'redux';
 
-
 // actions.js
 export const activateGeod = geod => ({
     type: 'ACTIVATE_GEOD',
     geod
 });
-
-
-
 
 // reducers.js
 export const geod = (state = {}, action) => {
@@ -24,13 +20,9 @@ export const reducers = combineReducers({
     geod
 });
 
-
-
-
 // store.js
 export function configureStore(initialState = {}) {
-    const store = createStore(reducers, initialState);
-    return store;
+    return createStore(reducers, initialState);
 }
 
 export const store = configureStore();
