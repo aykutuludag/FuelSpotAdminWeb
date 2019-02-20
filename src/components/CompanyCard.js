@@ -17,10 +17,6 @@ function CompanyCard(props) {
                         className="card-text">{props.lastUpdated}</p></li>
                 </ul>
             </div>
-
-            <div className="card-footer text-muted">
-                <button className="btn btn-primary">Düzenle</button>
-            </div>
         </div>
     )
 }

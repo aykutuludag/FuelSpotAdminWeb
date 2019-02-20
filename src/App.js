@@ -1,19 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
-import {PostData} from './services/PostData';
 import './App.css';
-import logo from './user-image.svg';
+import logo from './img/user-image.svg';
+import fuelspotlogo from "./img/fuelspotlogo.svg"
 import StationsPanel, {ButtonContainer, mapDispatchToProps, mapStateToProps} from "./panels/StationsPanel";
 import ProfileUpdate from "./panels/ProfileUpdate";
 import CompaniesPanel from "./panels/CompaniesPanel";
-import CampaignsPanel from "./panels/CampaignsPanel"
-import ReportsPanel from "./panels/ReportsPanel"
-import PurchasesPanel from "./panels/PurchasesPanel"
-import BankingPanel from "./panels/BankingPanel"
-import OrdersPanel from "./panels/OrdersPanel"
-import UsersPanel from "./panels/UsersPanel"
-import AutomobilesPanel from "./panels/AutomobilesPanel"
+import {PostData} from "./services/PostData";
 
 export let STATIONS = {};
 export let COMPANIES = {};
@@ -63,17 +57,17 @@ function MainPanel() {
                 class="btn btn-block btn-primary"
             />
             <ButtonContainer
-                menu={<CampaignsPanel/>}
+                // menu={<CampaignsPanel/>}
                 name="Kampanyalar"
                 class="btn btn-block btn-primary"
             />
             <ButtonContainer
-                menu={<ReportsPanel/>}
+                //   menu={<ReportsPanel/>}
                 name="Raporlar"
                 class="btn btn-block btn-primary"
             />
             <ButtonContainer
-                menu={<PurchasesPanel/>}
+                //  menu={<PurchasesPanel/>}
                 name="Satınalmalar"
                 class="btn btn-block btn-primary"
             />
@@ -83,22 +77,22 @@ function MainPanel() {
                 class="btn btn-block btn-primary"
             />
             <ButtonContainer
-                menu={<BankingPanel/>}
+                //    menu={<BankingPanel/>}
                 name="Hesap hareketleri"
                 class="btn btn-block btn-primary"
             />
             <ButtonContainer
-                menu={<OrdersPanel/>}
+                //    menu={<OrdersPanel/>}
                 name="Siparişler"
                 class="btn btn-block btn-primary"
             />
             <ButtonContainer
-                menu={<UsersPanel/>}
+                //    menu={<UsersPanel/>}
                 name="Kullanıcılar"
                 class="btn btn-block btn-primary"
             />
             <ButtonContainer
-                menu={<AutomobilesPanel/>}
+                //   menu={<AutomobilesPanel/>}
                 name="Araçlar"
                 class="btn btn-block btn-primary"
             />
@@ -131,42 +125,21 @@ export class App extends React.Component {
 
 const FuelSpotAdmin_LOGGEDIN = connect(mapStateToProps, mapDispatchToProps)(App);
 
-
-
-
-const fakeAuth = {
-
-    isAuthenticated: localStorage.getItem('userData') ? true : false,
-    authenticate(cb) {
-        this.isAuthenticated = true;
-        setTimeout(cb, 100); // fake async
-    },
-    signout(cb) {
-        this.isAuthenticated = false;
-        setTimeout(cb, 100);
-    }
-};
-
-
 export class FuelSpot_ADMIN extends React.Component {
-
     render() {
-
         return (
             <Router basename="/admin">
                 <Switch>
                     <PrivateRoute exact path="/" component={FuelSpotAdmin_LOGGEDIN}/>
-                    <Route path='/Login' component={FuelSpotAdmin_LOGIN}/>
-                    <Route component={FuelSpotAdmin_LOGIN} />
+                    <Route path='/Login' component={Login}/>
+                    <Route component={Login}/>
                 </Switch>
             </Router>
         );
     }
 }
 
-export class FuelSpotAdmin_LOGIN extends React.Component {
-
-
+export class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -205,30 +178,31 @@ export class FuelSpotAdmin_LOGIN extends React.Component {
 
 
     render() {
-
         if (this.state.loggedIn) return <Redirect to={'/'} />;
-
         return (
             <div className="container-fluid d-flex h-100 p-0 mx-auto flex-column">
                 <header className="masthead mb-auto">
                     <div className="inner">
-                        <h3 className="masthead-brand">FuelSpot</h3>
+                        <img src={fuelspotlogo}/>
                     </div>
                 </header>
                 <main className="text-center">
 
                     <React.Fragment>
                         {
-                        this.state.error ?
-                            <p className="text-danger">Hatalı kullanıcı adı veya şifre</p>
-                            :
-                            null
+                            this.state.error ?
+                                <p className="text-danger">Hatalı kullanıcı adı veya şifre</p>
+                                :
+                                null
                         }
                     </React.Fragment>
 
-                    <input id="name" class="form-control" name="username" type="text" placeholder="Kullanıcı Adı" maxlength="20" aria-required="true" onChange={this.onChange} />
-                    <input id="password" class="form-control" name="password" type="password" placeholder="Şifre" maxlength="15" aria-required="true" onChange={this.onChange} />
-                    <button class="btn btn-block btn-dark" type="submit" name="button" value="GİRİŞ" onClick={() => this.login()} />
+                    <input id="name" className="form-control" name="username" type="text" placeholder="Kullanıcı Adı"
+                           maxLength="30" aria-required="true" onChange={this.onChange}/>
+                    <input id="password" className="form-control" name="password" type="password" placeholder="Şifre"
+                           maxLength="30" aria-required="true" onChange={this.onChange}/>
+                    <button className="btn btn-block btn-dark" type="submit" name="button" value="GİRİŞ" color="#fff"
+                            onClick={() => this.login()}/>
                 </main>
                 <footer className="mastfoot mt-auto"/>
             </div>
@@ -255,5 +229,17 @@ function PrivateRoute({ component: Component, ...rest }) {
         />
     );
 }
+
+export const fakeAuth = {
+    isAuthenticated: localStorage.getItem('userData') ? true : false,
+    authenticate(cb) {
+        this.isAuthenticated = true;
+        setTimeout(cb, 100); // fake async
+    },
+    signout(cb) {
+        this.isAuthenticated = false;
+        setTimeout(cb, 100);
+    }
+};
 
 export default FuelSpot_ADMIN;

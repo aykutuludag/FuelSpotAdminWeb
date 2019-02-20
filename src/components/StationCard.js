@@ -3,13 +3,13 @@ import _ from 'lodash';
 import {AUTH_KEY, COMPANIES, STATIONS} from './../App';
 import CheckBox from './CheckBox'
 import {getDistanceFromLatLonInKm} from "../services/LocationProximity";
-import IconWC from "../bathroom.svg";
-import IconMarket from "../shopping-basket.svg";
-import IconCarWash from "../gas-station.svg";
-import IconMechanic from "../wrench.svg";
-import IconRestaurant from "../restaurant.svg";
-import IconTireRepair from "../tirerepair.svg";
-import IconParkSpot from "../parking-sign.svg";
+import IconWC from "../img/bathroom.svg";
+import IconMarket from "../img/shopping-basket.svg";
+import IconCarWash from "../img/gas-station.svg";
+import IconMechanic from "../img/wrench.svg";
+import IconRestaurant from "../img/restaurant.svg";
+import IconTireRepair from "../img/tirerepair.svg";
+import IconParkSpot from "../img/parking-sign.svg";
 
 const ICONS = {
     WC: IconWC,
