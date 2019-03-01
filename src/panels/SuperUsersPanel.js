@@ -1,6 +1,6 @@
 import React from "react";
 
-function UsersPanel() {
+function SuperUsersPanel() {
     return (
         <div className="panel panel-wide">
             {
@@ -10,4 +10,4 @@ function UsersPanel() {
     );
 }
 
-export default UsersPanel
+export default SuperUsersPanel

@@ -1,14 +1,7 @@
 import React from "react";
-import {AUTH_KEY, STATIONS} from "../App";
-import connect from "react-redux/es/connect/connect";
-import Button from "../components/Button"
-import {activateGeod} from "../redux";
+import {AUTH_KEY, ButtonContainer, STATIONS} from "../App";
 import StationCard from "../components/StationCard";
 import _ from 'lodash';
-
-export const mapStateToProps = state => ({geod: state.geod});
-export const mapDispatchToProps = {activateGeod};
-export const ButtonContainer = connect(mapStateToProps, mapDispatchToProps)(Button);
 
 function StationsPanel() {
     return (
@@ -49,7 +42,6 @@ function StationsPanel() {
                 class="btn btn-block btn-primary"
             />
         </div>
-
     );
 }
 
@@ -92,7 +84,7 @@ class IdView extends React.Component {
     }
 
     change(event) {
-        var getStation = _.filter(STATIONS.all, {id: event.target.value});
+        let getStation = _.filter(STATIONS.all, {id: event.target.value});
 
         if (getStation.length) {
             this.setState({station: getStation[0]});

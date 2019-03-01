@@ -29,12 +29,12 @@ class Checkbox extends React.Component {
         fetch(url, params)
             .then(
                 (result) => {
-                    alert("Kaydedildi");
+                    alert("Kaydedildi" + result);
                     document.body.classList.remove("loading");
                     _root.setState({checked: !_root.state.checked});
                 },
                 (error) => {
-                    alert("Kayıt başarısız!");
+                    alert("Kayıt başarısız!" + error);
                     console.log(error, "Kayıt başarısız!");
                 }
             );
@@ -45,7 +45,7 @@ class Checkbox extends React.Component {
     handleActiveChange(event) {
 
 
-        var isActive = this.state.checked ? 0 : 1;
+        let isActive = this.state.checked ? 0 : 1;
 
         if (!this.state.checked) {
 

@@ -4,10 +4,26 @@ import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom
 import './App.css';
 import logo from './img/user-image.svg';
 import fuelspotlogo from "./img/fuelspotlogo.svg"
-import StationsPanel, {ButtonContainer, mapDispatchToProps, mapStateToProps} from "./panels/StationsPanel";
+import {activateGeod} from "./redux";
+import Button from "./components/Button";
+
+import StationsPanel from "./panels/StationsPanel";
+import AutomobilesPanel from "./panels/AutomobilesPanel"
+import CampaignsPanel from "./panels/CampaignsPanel"
+import PurchasesPanel from "./panels/PurchasesPanel"
 import ProfileUpdate from "./panels/ProfileUpdate";
 import CompaniesPanel from "./panels/CompaniesPanel";
+import AccountingPanel from "./panels/AccountingPanel"
+import OrdersPanel from "./panels/OrdersPanel"
+import UsersPanel from "./panels/UsersPanel"
+import SuperUsersPanel from "./panels/SuperUsersPanel"
+import ReportsPanel from "./panels/ReportsPanel";
 
+export const mapStateToProps = state => ({geod: state.geod});
+export const mapDispatchToProps = {activateGeod};
+export const ButtonContainer = connect(mapStateToProps, mapDispatchToProps)(Button);
+
+export let REPORTS = {};
 export let STATIONS = {};
 export let COMPANIES = {};
 export const AUTH_KEY = "AUTH_KEY=Ph76g0MSZ2okeWQmShYDlXakjgjhbe";
@@ -16,7 +32,7 @@ const getCompanies = () => {
     let url = 'https://fuel-spot.com/api/other/company.php';
     let params = {
         headers: {
-            "content-type" : "application/x-www-form-urlencoded"
+            "content-type": "application/x-www-form-urlencoded"
         },
         body: AUTH_KEY,
         method: "POST"
@@ -26,18 +42,16 @@ const getCompanies = () => {
         .then(res => res.json())
         .then(
             (result) => {
-                console.log("Firmalar çekildi.", result);
                 COMPANIES = result;
             },
             (error) => {
-                console.log("Firmalar veritabanından çekilemedi.",error);
+                console.log("Firmalar veritabanından çekilemedi.", error);
             }
         );
 };
 
 function MainPanel() {
     let user = JSON.parse(localStorage.getItem('userData'))[0];
-    console.log(user);
     getCompanies();
     return (
         <div className="panel panel-wide d-flex align-items-start flex-column text-center py-3">
@@ -51,50 +65,22 @@ function MainPanel() {
                 <h4>{user.name}</h4>
             </div>
             <ButtonContainer
-                menu={<StationsPanel/>}
                 name="İstasyonlar"
+                menu={<StationsPanel/>}
                 class="btn btn-block btn-primary"
             />
-            <ButtonContainer
-                // menu={<CampaignsPanel/>}
-                name="Kampanyalar"
-                class="btn btn-block btn-primary"
-            />
-            <ButtonContainer
-                //   menu={<ReportsPanel/>}
-                name="Raporlar"
-                class="btn btn-block btn-primary"
-            />
-            <ButtonContainer
-                //  menu={<PurchasesPanel/>}
-                name="Satınalmalar"
-                class="btn btn-block btn-primary"
-            />
-            <ButtonContainer
-                menu={<CompaniesPanel/>}
-                name="Dağıtım firmaları"
-                class="btn btn-block btn-primary"
-            />
-            <ButtonContainer
-                //    menu={<BankingPanel/>}
-                name="Hesap hareketleri"
-                class="btn btn-block btn-primary"
-            />
-            <ButtonContainer
-                //    menu={<OrdersPanel/>}
-                name="Siparişler"
-                class="btn btn-block btn-primary"
-            />
-            <ButtonContainer
-                //    menu={<UsersPanel/>}
-                name="Kullanıcılar"
-                class="btn btn-block btn-primary"
-            />
-            <ButtonContainer
-                //   menu={<AutomobilesPanel/>}
-                name="Araçlar"
-                class="btn btn-block btn-primary"
-            />
+            <button type="button" className="btn btn-block btn-primary" onClick={CampaignsPanel}>Kampanyalar</button>
+            <button type="button" className="btn btn-block btn-primary" onClick={ReportsPanel}>Raporlar</button>
+            <button type="button" className="btn btn-block btn-primary" onClick={PurchasesPanel}>Satınalmalar</button>
+            <button type="button" className="btn btn-block btn-primary" onClick={() => <CompaniesPanel/>}>Dağıtım
+                firmaları
+            </button>
+            <button type="button" className="btn btn-block btn-primary" onClick={AccountingPanel}>Muhasebe</button>
+            <button type="button" className="btn btn-block btn-primary" onClick={OrdersPanel}>Siparişler</button>
+            <button type="button" className="btn btn-block btn-primary" onClick={UsersPanel}>Kullanıcılar</button>
+            <button type="button" className="btn btn-block btn-primary" onClick={SuperUsersPanel}>İstasyon sahipleri
+            </button>
+            <button type="button" className="btn btn-block btn-primary" onClick={AutomobilesPanel}>Araçlar</button>
         </div>
     );
 }
@@ -105,7 +91,7 @@ export class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        if ( !this.props.geod.title ) {
+        if (!this.props.geod.title) {
             const view = [];
             view.push(<MainPanel/>);
             this.props.geod.title = view;
@@ -139,6 +125,23 @@ export class FuelSpot_ADMIN extends React.Component {
 }
 
 export class Login extends React.Component {
+    login = () => {
+        if (this.state.username && this.state.password) {
+
+            PostData(this.state.username, this.state.password)
+                .then((result) => {
+                    localStorage.setItem('userData', JSON.stringify(result));
+
+                    fakeAuth.authenticate(() => {
+                        this.setState({loggedIn: true});
+                    });
+                })
+                .catch((error) => {
+                    this.setState({error: true});
+                });
+        }
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -150,34 +153,13 @@ export class Login extends React.Component {
         this.onChange = this.onChange.bind(this);
     }
 
-    login = () => {
-        if(this.state.username && this.state.password){
-
-            PostData(this.state.username,this.state.password)
-                .then((result) => {
-                    console.log("Kullanıcı Bulundu", result);
-                    localStorage.setItem('userData',JSON.stringify(result));
-
-                    fakeAuth.authenticate(() => {
-                        this.setState({ loggedIn: true });
-                    });
-                })
-                .catch((error) => {
-                    console.log("Kullanıcı Bulunamadı");
-                    this.setState({ error: true });
-                });
-        }
-    };
-
-
-    onChange(e){
-        this.setState({[e.target.name]:e.target.value});
+    onChange(e) {
+        this.setState({[e.target.name]: e.target.value});
     }
 
 
-
     render() {
-        if (this.state.loggedIn) return <Redirect to={'/'} />;
+        if (this.state.loggedIn) return <Redirect to={'/'}/>;
         return (
             <div className="container-fluid d-flex h-100 p-0 mx-auto flex-column">
                 <header className="masthead mb-auto">
@@ -209,22 +191,22 @@ export class Login extends React.Component {
     }
 }
 
-function PrivateRoute({ component: Component, ...rest }) {
+function PrivateRoute({component: Component, ...rest}) {
     return (
         <Route
             {...rest}
             render={props =>
                 fakeAuth.isAuthenticated ? (
-                  <Component {...props} />
+                    <Component {...props} />
                 ) : (
-                  <Redirect
-                    to={{
-                      pathname: "/Login",
-                      state: { from: props.location }
-                    }}
-                  />
+                    <Redirect
+                        to={{
+                            pathname: "/Login",
+                            state: {from: props.location}
+                        }}
+                    />
                 )
-              }
+            }
         />
     );
 }
@@ -240,8 +222,6 @@ function PostData(username, password) {
         body: body,
         method: "POST"
     };
-    console.log(username, password);
-
     return new Promise((resolve, reject) => {
 
         fetch(url, params)
@@ -260,7 +240,7 @@ function PostData(username, password) {
 }
 
 export const fakeAuth = {
-    isAuthenticated: localStorage.getItem('userData') ? true : false,
+    isAuthenticated: !!localStorage.getItem('userData'),
     authenticate(cb) {
         this.isAuthenticated = true;
         setTimeout(cb, 100); // fake async

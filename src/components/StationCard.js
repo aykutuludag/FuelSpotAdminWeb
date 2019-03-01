@@ -90,11 +90,11 @@ class StationCard extends React.Component {
 
             document.body.classList.add("loading");
 
-            var paramMendatory = AUTH_KEY + '&stationID=' + this.state.station.id;
-            var paramsChange = '&stationName=' + this.state.station.name + '&stationVicinity=' + this.state.station.vicinity + '&country=' + this.state.station.country + '&location=' + this.state.station.location + '&facilities=' + this.state.station.facilities + '&stationLogo=' + this.state.station.logoURL + '&gasolinePrice=' + this.state.station.gasolinePrice + '&dieselPrice=' + this.state.station.dieselPrice + '&lpgPrice=' + this.state.station.lpgPrice + '&electricityPrice=' + this.state.station.electricityPrice + '&licenseNo=' + this.state.station.licenseNo + '&owner=' + this.state.station.owner + '&isVerified=' + this.state.station.isVerified + '&mobilePayment=' + this.state.station.isMobilePaymentAvailable + '&fuelDelivery=' + this.state.station.isDeliveryAvailable + '&isActive=' + this.state.station.isActive;
+            let paramMendatory = AUTH_KEY + '&stationID=' + this.state.station.id;
+            let paramsChange = '&stationName=' + this.state.station.name + '&stationVicinity=' + this.state.station.vicinity + '&country=' + this.state.station.country + '&location=' + this.state.station.location + '&facilities=' + this.state.station.facilities + '&stationLogo=' + this.state.station.logoURL + '&gasolinePrice=' + this.state.station.gasolinePrice + '&dieselPrice=' + this.state.station.dieselPrice + '&lpgPrice=' + this.state.station.lpgPrice + '&electricityPrice=' + this.state.station.electricityPrice + '&licenseNo=' + this.state.station.licenseNo + '&owner=' + this.state.station.owner + '&isVerified=' + this.state.station.isVerified + '&mobilePayment=' + this.state.station.isMobilePaymentAvailable + '&fuelDelivery=' + this.state.station.isDeliveryAvailable + '&isActive=' + this.state.station.isActive;
 
-            var url = 'https://fuel-spot.com/api/admin/station-update.php';
-            var params = {
+            let url = 'https://fuel-spot.com/api/admin/station-update.php';
+            let params = {
                 headers: {
                     "content-type": "application/x-www-form-urlencoded"
                 },
@@ -196,7 +196,7 @@ class StationCard extends React.Component {
         if (this.state.editmode) {
 
 
-            var _root = this;
+            let _root = this;
 
             return (
                 <form onSubmit={this.handleSubmit}>
@@ -205,14 +205,14 @@ class StationCard extends React.Component {
 
                         <div className="card-body">
                             <div className="form-group row">
-                                <div class="col-sm-3"/>
-                                <div class="col-sm-9">
+                                <div className="col-sm-3"/>
+                                <div className="col-sm-9">
                                     <img className="card-img-top" src={this.state.station.logoURL}/>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label class="col-sm-3 col-form-label">Firma</label>
-                                <div class="col-sm-9">
+                                <label className="col-sm-3 col-form-label">Firma</label>
+                                <div className="col-sm-9">
                                     <select name="name" className="form-control" onChange={this.handleInputChange}
                                             value={this.state.station.name}>
                                         {
@@ -226,8 +226,8 @@ class StationCard extends React.Component {
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label class="col-sm-3 col-form-label">Adres</label>
-                                <div class="col-sm-9">
+                                <label className="col-sm-3 col-form-label">Adres</label>
+                                <div className="col-sm-9">
                                     <input name="vicinity" type="text" className="form-control"
                                            onChange={this.handleInputChange}
                                            defaultValue={this.state.station.vicinity}/>
@@ -235,32 +235,32 @@ class StationCard extends React.Component {
                             </div>
 
                             <div className="form-group row">
-                                <label class="col-sm-3 col-form-label">Benzin Fiyatı</label>
-                                <div class="col-sm-9">
+                                <label className="col-sm-3 col-form-label">Benzin Fiyatı</label>
+                                <div className="col-sm-9">
                                     <input name="gasolinePrice" type="number" className="form-control" step=".01"
                                            onChange={this.handleInputChange}
                                            defaultValue={this.state.station.gasolinePrice}/>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label class="col-sm-3 col-form-label">Dizel Fiyatı</label>
-                                <div class="col-sm-9">
+                                <label className="col-sm-3 col-form-label">Dizel Fiyatı</label>
+                                <div className="col-sm-9">
                                     <input name="dieselPrice" type="number" className="form-control" step=".01"
                                            onChange={this.handleInputChange}
                                            defaultValue={this.state.station.dieselPrice}/>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label class="col-sm-3 col-form-label">LPG Fiyatı</label>
-                                <div class="col-sm-9">
+                                <label className="col-sm-3 col-form-label">LPG Fiyatı</label>
+                                <div className="col-sm-9">
                                     <input name="lpgPrice" type="number" className="form-control" step=".01"
                                            onChange={this.handleInputChange}
                                            defaultValue={this.state.station.lpgPrice}/>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label class="col-sm-3 col-form-label">Elektrik Fiyatı</label>
-                                <div class="col-sm-9">
+                                <label className="col-sm-3 col-form-label">Elektrik Fiyatı</label>
+                                <div className="col-sm-9">
                                     <input name="electricityPrice" type="number" className="form-control" step=".01"
                                            onChange={this.handleInputChange}
                                            defaultValue={this.state.station.electricityPrice}/>
@@ -269,12 +269,12 @@ class StationCard extends React.Component {
 
 
                             <div className="form-group row">
-                                <label class="col-sm-3 col-form-label">İmkanlar</label>
-                                <div class="col-sm-9">
+                                <label className="col-sm-3 col-form-label">İmkanlar</label>
+                                <div className="col-sm-9">
                                     {
                                         Object.keys(this.state.facilities).map(function (data, key) {
                                             return (
-                                                <div class="form-check form-check-inline">
+                                                <div className="form-check form-check-inline">
                                                     <label className="checkbox">
                                                         <input
                                                             type="checkbox"
@@ -297,47 +297,47 @@ class StationCard extends React.Component {
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label class="col-sm-3 col-form-label">Kayıtlı Yetkili</label>
-                                <div class="col-sm-9">
+                                <label className="col-sm-3 col-form-label">Kayıtlı Yetkili</label>
+                                <div className="col-sm-9">
                                     <input name="owner" type="text" className="form-control"
                                            onChange={this.handleInputChange} defaultValue={this.state.station.owner}/>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label class="col-sm-3 col-form-label">Lokasyon</label>
-                                <div class="col-sm-9">
+                                <label className="col-sm-3 col-form-label">Lokasyon</label>
+                                <div className="col-sm-9">
                                     <input name="location" type="text" className="form-control"
                                            onChange={this.handleInputChange}
                                            defaultValue={this.state.station.location}/>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label class="col-sm-3 col-form-label">Lisans Numarası</label>
-                                <div class="col-sm-9">
+                                <label className="col-sm-3 col-form-label">Lisans Numarası</label>
+                                <div className="col-sm-9">
                                     <input name="licenseNo" type="text" className="form-control"
                                            onChange={this.handleInputChange}
                                            defaultValue={this.state.station.licenseNo}/>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label class="col-sm-3 col-form-label">Alo Yakıt</label>
-                                <div class="col-sm-9">
+                                <label className="col-sm-3 col-form-label">Alo Yakıt</label>
+                                <div className="col-sm-9">
                                     <input name="isDeliveryAvailable" type="number" className="form-control"
                                            onChange={this.handleInputChange}
                                            defaultValue={this.state.station.isDeliveryAvailable}/>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label class="col-sm-3 col-form-label">Mobil Ödeme</label>
-                                <div class="col-sm-9">
+                                <label className="col-sm-3 col-form-label">Mobil Ödeme</label>
+                                <div className="col-sm-9">
                                     <input name="isMobilePaymentAvailable" type="number" className="form-control"
                                            onChange={this.handleInputChange}
                                            defaultValue={this.state.station.isMobilePaymentAvailable}/>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label class="col-sm-3 col-form-label">İstasyon kayıtlı mı?</label>
-                                <div class="col-sm-9">
+                                <label className="col-sm-3 col-form-label">İstasyon kayıtlı mı?</label>
+                                <div className="col-sm-9">
                                     <input name="isVerified" type="number" className="form-control"
                                            onChange={this.handleInputChange}
                                            defaultValue={this.state.station.isVerified}/>
@@ -350,8 +350,8 @@ class StationCard extends React.Component {
 
             )
         } else {
-            var location = this.state.station.location.split(";");
-            var mapHref = 'https://www.google.com/maps/place/' + location[0] + ',' + location[1] + '';
+            let location = this.state.station.location.split(";");
+            let mapHref = 'https://www.google.com/maps/place/' + location[0] + ',' + location[1] + '';
 
             return (
                 <div className="card" id={this.state.station.id}>
@@ -359,9 +359,11 @@ class StationCard extends React.Component {
                         <img className="card-img-top" src={this.state.station.logoURL}/>
 
                         <ul className="list-group list-group-flush">
-                            <li class="list-group-item"><h5 className="card-title">{this.state.station.name}</h5></li>
-                            <li class="list-group-item"><p className="card-text">{this.state.station.vicinity}</p></li>
-                            <li class="list-group-item"><a className="btn-link" href={mapHref}
+                            <li className="list-group-item"><h5 className="card-title">{this.state.station.name}</h5>
+                            </li>
+                            <li className="list-group-item"><p className="card-text">{this.state.station.vicinity}</p>
+                            </li>
+                            <li className="list-group-item"><a className="btn-link" href={mapHref}
                                                            target="_blank">{this.state.station.location}</a></li>
                         </ul>
 

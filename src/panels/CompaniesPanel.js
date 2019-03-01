@@ -8,7 +8,6 @@ function CompaniesPanel() {
             {
                 COMPANIES.map((item) => (
                     <CompanyCard
-                        key={item.id}
                         companyName={item.companyName}
                         companyLogo={item.companyLogo}
                         numOfVerifieds={item.numOfVerifieds}

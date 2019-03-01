@@ -19,7 +19,7 @@ class Button extends React.Component {
         const domPanel = ReactDOM.findDOMNode(this).closest(".panel");
         const buttonIndex = Array.from(domPanel.parentElement.children).indexOf(domPanel);
 
-        for (var i = 0; i < buttonIndex + 1; i++) {
+        for (let i = 0; i < buttonIndex + 1; i++) {
             view[i] = this.props.geod.title[i];
         }
         view.push(panel);
@@ -29,6 +29,8 @@ class Button extends React.Component {
     }
 
     fetchUrl(props) {
+        document.body.classList.add("loading");
+
         let url = props.url;
         let params = {
             headers: {
@@ -37,8 +39,6 @@ class Button extends React.Component {
             body: props.param,
             method: "POST"
         };
-
-        document.body.classList.add("loading");
 
         fetch(url, params)
             .then(res => res.json())
@@ -66,14 +66,12 @@ class Button extends React.Component {
             )
     }
 
-
     render() {
         if (!this.props.menu) {
             return (
                 <button className={this.props.class}>{this.props.name}</button>
             )
         }
-
         if (this.props.size) {
             return (
                 <button className={this.props.class} onClick={() => this.updatePanel(this.props.menu)}>
@@ -82,7 +80,6 @@ class Button extends React.Component {
                 </button>
             )
         } else {
-
             if (!this.props.url) {
                 return (
                     <button className={this.props.class}

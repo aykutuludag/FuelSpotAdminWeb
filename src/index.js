@@ -11,7 +11,7 @@ import {store} from './redux';
 
 ReactDOM.render(
     <Provider store={store}>
-        <FuelSpot_ADMIN />
+        <FuelSpot_ADMIN/>
     </Provider>,
     document.getElementById('FUELSPOT_VIEW')
 );
