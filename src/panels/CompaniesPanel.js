@@ -8,6 +8,7 @@ function CompaniesPanel() {
             {
                 COMPANIES.map((item) => (
                     <CompanyCard
+                        companyID={item.id}
                         companyName={item.companyName}
                         companyLogo={item.companyLogo}
                         numOfVerifieds={item.numOfVerifieds}
@@ -16,7 +17,6 @@ function CompaniesPanel() {
                         lastUpdated={item.lastUpdated}
                     />
                 ))
-
             }
         </div>
     );

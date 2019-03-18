@@ -34,7 +34,7 @@ const filterStations = (stations) => {
     STATIONS.passive = _.filter(STATIONS.all, {isActive: "0"});
     STATIONS.isVerified = _.filter(STATIONS.active, {isVerified: "1"});
     STATIONS.waitingApproval = _.filter(STATIONS.active, station => (station.licenceNo !== '' && station.isVerified === '0') && station.owner !== '');
-    STATIONS.isNoLogo = _.filter(STATIONS.active, {logoURL: "https://fuel-spot.com/default_icons/station.jpg"});
+    STATIONS.isNoLogo = _.filter(STATIONS.active, {logoURL: "https://fuelspot.com.tr/default_icons/station.jpg"});
 
     //Stations Sort By Location
     STATIONS.allStationsSortByLocation = _.orderBy(STATIONS.all, "location");
@@ -93,7 +93,7 @@ class StationCard extends React.Component {
             let paramMendatory = AUTH_KEY + '&stationID=' + this.state.station.id;
             let paramsChange = '&stationName=' + this.state.station.name + '&stationVicinity=' + this.state.station.vicinity + '&country=' + this.state.station.country + '&location=' + this.state.station.location + '&facilities=' + this.state.station.facilities + '&stationLogo=' + this.state.station.logoURL + '&gasolinePrice=' + this.state.station.gasolinePrice + '&dieselPrice=' + this.state.station.dieselPrice + '&lpgPrice=' + this.state.station.lpgPrice + '&electricityPrice=' + this.state.station.electricityPrice + '&licenseNo=' + this.state.station.licenseNo + '&owner=' + this.state.station.owner + '&isVerified=' + this.state.station.isVerified + '&mobilePayment=' + this.state.station.isMobilePaymentAvailable + '&fuelDelivery=' + this.state.station.isDeliveryAvailable + '&isActive=' + this.state.station.isActive;
 
-            let url = 'https://fuel-spot.com/api/admin/station-update.php';
+            let url = 'https://fuelspot.com.tr/api/admin/station-update.php';
             let params = {
                 headers: {
                     "content-type": "application/x-www-form-urlencoded"

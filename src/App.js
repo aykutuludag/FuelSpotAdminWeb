@@ -23,13 +23,12 @@ export const mapStateToProps = state => ({geod: state.geod});
 export const mapDispatchToProps = {activateGeod};
 export const ButtonContainer = connect(mapStateToProps, mapDispatchToProps)(Button);
 
-export let REPORTS = {};
 export let STATIONS = {};
 export let COMPANIES = {};
 export const AUTH_KEY = "AUTH_KEY=Ph76g0MSZ2okeWQmShYDlXakjgjhbe";
 
 const getCompanies = () => {
-    let url = 'https://fuel-spot.com/api/other/company.php';
+    let url = 'https://fuelspot.com.tr/api/other/company.php';
     let params = {
         headers: {
             "content-type": "application/x-www-form-urlencoded"
@@ -69,12 +68,22 @@ function MainPanel() {
                 menu={<StationsPanel/>}
                 class="btn btn-block btn-primary"
             />
-            <button type="button" className="btn btn-block btn-primary" onClick={CampaignsPanel}>Kampanyalar</button>
-            <button type="button" className="btn btn-block btn-primary" onClick={ReportsPanel}>Raporlar</button>
+            <ButtonContainer
+                name="Raporlar"
+                menu={<ReportsPanel/>}
+                class="btn btn-block btn-primary"
+            />
+            <ButtonContainer
+                name="Dağıtım firmaları"
+                menu={<CompaniesPanel/>}
+                class="btn btn-block btn-primary"
+            />
+            <ButtonContainer
+                name="Kampanyalar"
+                menu={<CampaignsPanel/>}
+                class="btn btn-block btn-primary"
+            />
             <button type="button" className="btn btn-block btn-primary" onClick={PurchasesPanel}>Satınalmalar</button>
-            <button type="button" className="btn btn-block btn-primary" onClick={() => <CompaniesPanel/>}>Dağıtım
-                firmaları
-            </button>
             <button type="button" className="btn btn-block btn-primary" onClick={AccountingPanel}>Muhasebe</button>
             <button type="button" className="btn btn-block btn-primary" onClick={OrdersPanel}>Siparişler</button>
             <button type="button" className="btn btn-block btn-primary" onClick={UsersPanel}>Kullanıcılar</button>
@@ -213,7 +222,7 @@ function PrivateRoute({component: Component, ...rest}) {
 
 function PostData(username, password) {
 
-    const url = "https://fuel-spot.com/api/admin/login.php";
+    const url = "https://fuelspot.com.tr/api/admin/login.php";
     const body = "username=" + username + "&password=" + password + "&AUTH_KEY=Ph76g0MSZ2okeWQmShYDlXakjgjhbe";
     const params = {
         headers: {
