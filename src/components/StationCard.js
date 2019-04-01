@@ -9,6 +9,7 @@ import IconMechanic from "../img/wrench.svg";
 import IconRestaurant from "../img/restaurant.svg";
 import IconTireRepair from "../img/tirerepair.svg";
 import IconParkSpot from "../img/parking-sign.svg";
+import IconATM from "../img/atm.svg"
 
 const ICONS = {
     WC: IconWC,
@@ -17,7 +18,8 @@ const ICONS = {
     Mechanic: IconMechanic,
     Restaurant: IconRestaurant,
     TireRepair: IconTireRepair,
-    ParkSpot: IconParkSpot
+    ParkSpot: IconParkSpot,
+    ATM: IconATM
 };
 
 export const buildStationsObject = (result) => {
@@ -336,7 +338,7 @@ class StationCard extends React.Component {
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label className="col-sm-3 col-form-label">İstasyon kayıtlı mı?</label>
+                                <label className="col-sm-3 col-form-label">İstasyonu onayla?</label>
                                 <div className="col-sm-9">
                                     <input name="isVerified" type="number" className="form-control"
                                            onChange={this.handleInputChange}
