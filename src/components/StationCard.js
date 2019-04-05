@@ -10,6 +10,7 @@ import IconRestaurant from "../img/restaurant.svg";
 import IconTireRepair from "../img/tirerepair.svg";
 import IconParkSpot from "../img/parking-sign.svg";
 import IconATM from "../img/atm.svg"
+import IconMotel from "../img/motel.svg"
 
 const ICONS = {
     WC: IconWC,
@@ -19,7 +20,8 @@ const ICONS = {
     Restaurant: IconRestaurant,
     TireRepair: IconTireRepair,
     ParkSpot: IconParkSpot,
-    ATM: IconATM
+    ATM: IconATM,
+    Motel: IconMotel,
 };
 
 export const buildStationsObject = (result) => {
