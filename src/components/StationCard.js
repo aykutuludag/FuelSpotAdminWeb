@@ -273,7 +273,7 @@ class StationCard extends React.Component {
 
 
                             <div className="form-group row">
-                                <label className="col-sm-3 col-form-label">İmkanlar</label>
+                                <label className="col-sm-3 col-form-label">Tesisler</label>
                                 <div className="col-sm-9">
                                     {
                                         Object.keys(this.state.facilities).map(function (data, key) {
@@ -284,7 +284,7 @@ class StationCard extends React.Component {
                                                             type="checkbox"
                                                             className="on_off"
                                                             name={data}
-                                                            checked={_root.state.facilities[data] == "1"}
+                                                            checked={_root.state.facilities[data] === 1}
                                                             onChange={_root.handleFacilities}
                                                         />
                                                         <img className="btn" src={ICONS[data]}/>
