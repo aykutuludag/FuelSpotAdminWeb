@@ -16,7 +16,7 @@ const filterReports = () => {
 
 const getReports = () => {
     document.body.classList.add("loading");
-    let url = 'https://fuelspot.com.tr/api/admin/bulk-report-fetch.php';
+    let url = 'https://fuelspot.com.tr/api/v1.0/admin/bulk-report-fetch.php';
     let params = {
         headers: {
             "content-type": "application/x-www-form-urlencoded"

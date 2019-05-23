@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../FuelSpotWeb/.idea/FuelSpotWeb.iml" filepath="$PROJECT_DIR$/../FuelSpotWeb/.idea/FuelSpotWeb.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/fuelspotadmin.iml" filepath="$PROJECT_DIR$/.idea/fuelspotadmin.iml" />
     </modules>
   </component>

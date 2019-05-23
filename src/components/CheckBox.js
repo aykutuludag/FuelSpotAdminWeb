@@ -17,7 +17,7 @@ class Checkbox extends React.Component {
         let paramMendatory = AUTH_KEY + '&stationID=' + this.state.stationID;
         let paramsChange = '&isActive=' + isActive;
 
-        let url = 'https://fuelspot.com.tr/api/admin/station-update.php';
+        let url = 'https://fuelspot.com.tr/api/v1.0/admin/station-update.php';
         let params = {
             headers: {
                 "content-type": "application/x-www-form-urlencoded"

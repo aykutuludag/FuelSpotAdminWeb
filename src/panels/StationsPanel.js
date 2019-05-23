@@ -7,35 +7,35 @@ function StationsPanel() {
     return (
         <div className="panel panel-wide">
             <ButtonContainer
-                url="https://fuelspot.com.tr/api/admin/bulk-station-fetch.php"
+                url="https://fuelspot.com.tr/api/v1.0/admin/bulk-station-fetch.php"
                 param={'country=TR&' + AUTH_KEY}
                 name="Türkiye"
                 menu={<StationFilter/>}
                 class="btn btn-block btn-primary"
             />
             <ButtonContainer
-                url="https://fuelspot.com.tr/api/admin/bulk-station-fetch.php"
+                url="https://fuelspot.com.tr/api/v1.0/admin/bulk-station-fetch.php"
                 param={'country=US&' + AUTH_KEY}
                 name="Amerika"
                 menu={<StationFilter/>}
                 class="btn btn-block btn-primary"
             />
             <ButtonContainer
-                url="https://fuelspot.com.tr/api/admin/bulk-station-fetch.php"
+                url="https://fuelspot.com.tr/api/v1.0/admin/bulk-station-fetch.php"
                 param={'country=DE&' + AUTH_KEY}
                 name="Almanya"
                 menu={<StationFilter/>}
                 class="btn btn-block btn-primary"
             />
             <ButtonContainer
-                url="https://fuelspot.com.tr/api/admin/bulk-station-fetch.php"
+                url="https://fuelspot.com.tr/api/v1.0/admin/bulk-station-fetch.php"
                 param={'country=AZ&' + AUTH_KEY}
                 name="Azerbeycan"
                 menu={<StationFilter/>}
                 class="btn btn-block btn-primary"
             />
             <ButtonContainer
-                url="https://fuelspot.com.tr/api/admin/bulk-station-fetch.php"
+                url="https://fuelspot.com.tr/api/v1.0/admin/bulk-station-fetch.php"
                 param={'country=RU&' + AUTH_KEY}
                 name="Rusya"
                 menu={<StationFilter/>}

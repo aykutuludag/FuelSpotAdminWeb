@@ -28,7 +28,7 @@ export let COMPANIES = {};
 export const AUTH_KEY = "AUTH_KEY=Ph76g0MSZ2okeWQmShYDlXakjgjhbe";
 
 const getCompanies = () => {
-    let url = 'https://fuelspot.com.tr/api/other/company.php';
+    let url = 'https://fuelspot.com.tr/api/v1.0/other/company.php';
     let params = {
         headers: {
             "content-type": "application/x-www-form-urlencoded"
@@ -222,7 +222,7 @@ function PrivateRoute({component: Component, ...rest}) {
 
 function PostData(username, password) {
 
-    const url = "https://fuelspot.com.tr/api/admin/login.php";
+    const url = "https://fuelspot.com.tr/api/v1.0/admin/login.php";
     const body = "username=" + username + "&password=" + password + "&AUTH_KEY=Ph76g0MSZ2okeWQmShYDlXakjgjhbe";
     const params = {
         headers: {
