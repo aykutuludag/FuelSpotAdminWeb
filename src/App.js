@@ -25,16 +25,20 @@ export const ButtonContainer = connect(mapStateToProps, mapDispatchToProps)(Butt
 
 export let STATIONS = {};
 export let COMPANIES = {};
-export const AUTH_KEY = "AUTH_KEY=Ph76g0MSZ2okeWQmShYDlXakjgjhbe";
+
+export let token;
+
+if (localStorage.getItem('userData') != null) {
+    token = JSON.parse(localStorage.getItem('userData'))[0].token;
+}
 
 const getCompanies = () => {
     let url = 'https://fuelspot.com.tr/api/v1.0/other/company.php';
     let params = {
         headers: {
-            "content-type": "application/x-www-form-urlencoded"
+            Authorization: "Bearer " + token,
         },
-        body: AUTH_KEY,
-        method: "POST"
+        method: "GET"
     };
 
     fetch(url, params)
@@ -223,7 +227,7 @@ function PrivateRoute({component: Component, ...rest}) {
 function PostData(username, password) {
 
     const url = "https://fuelspot.com.tr/api/v1.0/admin/login.php";
-    const body = "username=" + username + "&password=" + password + "&AUTH_KEY=Ph76g0MSZ2okeWQmShYDlXakjgjhbe";
+    const body = "username=" + username + "&password=" + password;
     const params = {
         headers: {
             "content-type": "application/x-www-form-urlencoded"

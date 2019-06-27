@@ -1,5 +1,5 @@
 import React from "react";
-import {AUTH_KEY, ButtonContainer, STATIONS} from "../App";
+import {ButtonContainer, STATIONS} from "../App";
 import StationCard from "../components/StationCard";
 import _ from 'lodash';
 
@@ -8,35 +8,35 @@ function StationsPanel() {
         <div className="panel panel-wide">
             <ButtonContainer
                 url="https://fuelspot.com.tr/api/v1.0/admin/bulk-station-fetch.php"
-                param={'country=TR&' + AUTH_KEY}
+                param={'country=TR'}
                 name="Türkiye"
                 menu={<StationFilter/>}
                 class="btn btn-block btn-primary"
             />
             <ButtonContainer
                 url="https://fuelspot.com.tr/api/v1.0/admin/bulk-station-fetch.php"
-                param={'country=US&' + AUTH_KEY}
+                param={'country=US'}
                 name="Amerika"
                 menu={<StationFilter/>}
                 class="btn btn-block btn-primary"
             />
             <ButtonContainer
                 url="https://fuelspot.com.tr/api/v1.0/admin/bulk-station-fetch.php"
-                param={'country=DE&' + AUTH_KEY}
+                param={'country=DE'}
                 name="Almanya"
                 menu={<StationFilter/>}
                 class="btn btn-block btn-primary"
             />
             <ButtonContainer
                 url="https://fuelspot.com.tr/api/v1.0/admin/bulk-station-fetch.php"
-                param={'country=AZ&' + AUTH_KEY}
+                param={'country=AZ'}
                 name="Azerbeycan"
                 menu={<StationFilter/>}
                 class="btn btn-block btn-primary"
             />
             <ButtonContainer
                 url="https://fuelspot.com.tr/api/v1.0/admin/bulk-station-fetch.php"
-                param={'country=RU&' + AUTH_KEY}
+                param={'country=RU'}
                 name="Rusya"
                 menu={<StationFilter/>}
                 class="btn btn-block btn-primary"

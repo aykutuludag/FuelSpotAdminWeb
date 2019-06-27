@@ -1,5 +1,5 @@
 import React from "react";
-import {AUTH_KEY} from "../App";
+import {token} from "../App";
 
 class Checkbox extends React.Component {
 
@@ -7,6 +7,8 @@ class Checkbox extends React.Component {
         super(props);
         this.state = {
             stationID: props.station.id,
+            stationName: props.station.name,
+            country: props.station.country,
             checked: props.station.isActive == 1
         };
         this.handleActiveChange = this.handleActiveChange.bind(this);
@@ -14,13 +16,14 @@ class Checkbox extends React.Component {
 
     changeActive(isActive) {
         let _root = this;
-        let paramMendatory = AUTH_KEY + '&stationID=' + this.state.stationID;
+        let paramMendatory = 'stationID=' + this.state.stationID + '&stationName=' + this.state.stationName + '&country=' + this.state.country;
         let paramsChange = '&isActive=' + isActive;
 
         let url = 'https://fuelspot.com.tr/api/v1.0/admin/station-update.php';
         let params = {
             headers: {
-                "content-type": "application/x-www-form-urlencoded"
+                "content-type": "application/x-www-form-urlencoded",
+                Authorization: "Bearer " + token,
             },
             body: paramMendatory + paramsChange,
             method: "POST"

@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import FuelSpot_ADMIN from './App';
 import * as serviceWorker from './serviceWorker';
-import '../node_modules/underscore/underscore-min.js';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import 'underscore/underscore-min.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 // Add these imports - Step 1
 import {Provider} from 'react-redux';

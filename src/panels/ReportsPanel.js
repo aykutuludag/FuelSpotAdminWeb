@@ -1,7 +1,7 @@
 import ReportCard from "../components/ReportCard";
 import React, {Component} from "react";
 import _ from "lodash";
-import {AUTH_KEY, ButtonContainer} from "../App";
+import {ButtonContainer, token} from "../App";
 import StationCard from "../components/StationCard";
 
 let REPORTS = {};
@@ -19,10 +19,10 @@ const getReports = () => {
     let url = 'https://fuelspot.com.tr/api/v1.0/admin/bulk-report-fetch.php';
     let params = {
         headers: {
-            "content-type": "application/x-www-form-urlencoded"
+            "content-type": "application/x-www-form-urlencoded",
+            Authorization: "Bearer " + token,
         },
-        body: AUTH_KEY,
-        method: "POST"
+        method: "GET"
     };
 
     fetch(url, params)

@@ -1,6 +1,6 @@
 import React from "react";
 import _ from 'lodash';
-import {AUTH_KEY, COMPANIES, STATIONS} from './../App';
+import {COMPANIES, STATIONS, token} from './../App';
 import CheckBox from './CheckBox'
 import IconWC from "../img/bathroom.svg";
 import IconMarket from "../img/shopping-basket.svg";
@@ -38,7 +38,7 @@ const filterStations = (stations) => {
     STATIONS.passive = _.filter(STATIONS.all, {isActive: "0"});
     STATIONS.isVerified = _.filter(STATIONS.active, {isVerified: "1"});
     STATIONS.waitingApproval = _.filter(STATIONS.active, station => (station.licenceNo !== '' && station.isVerified === '0') && station.owner !== '');
-    STATIONS.isNoLogo = _.filter(STATIONS.active, {logoURL: "https://fuelspot.com.tr/default_icons/station.jpg"});
+    STATIONS.isNoLogo = _.filter(STATIONS.active, {logoURL: "https://fuelspot.com.tr/default_icons/station.png"});
 
     //Stations Sort By Location
     STATIONS.allStationsSortByLocation = _.orderBy(STATIONS.all, "location");
@@ -84,6 +84,7 @@ class StationCard extends React.Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleFacilities = this.handleFacilities.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        console.log(JSON.parse(this.props.station.facilities)[0]);
     }
 
 
@@ -94,13 +95,14 @@ class StationCard extends React.Component {
 
             document.body.classList.add("loading");
 
-            let paramMendatory = AUTH_KEY + '&stationID=' + this.state.station.id;
+            let paramMendatory = 'stationID=' + this.state.station.id;
             let paramsChange = '&stationName=' + this.state.station.name + '&stationVicinity=' + this.state.station.vicinity + '&country=' + this.state.station.country + '&location=' + this.state.station.location + '&facilities=' + this.state.station.facilities + '&stationLogo=' + this.state.station.logoURL + '&gasolinePrice=' + this.state.station.gasolinePrice + '&dieselPrice=' + this.state.station.dieselPrice + '&lpgPrice=' + this.state.station.lpgPrice + '&electricityPrice=' + this.state.station.electricityPrice + '&licenseNo=' + this.state.station.licenseNo + '&owner=' + this.state.station.owner + '&isVerified=' + this.state.station.isVerified + '&mobilePayment=' + this.state.station.isMobilePaymentAvailable + '&fuelDelivery=' + this.state.station.isDeliveryAvailable + '&isActive=' + this.state.station.isActive;
 
             let url = 'https://fuelspot.com.tr/api/v1.0/admin/station-update.php';
             let params = {
                 headers: {
-                    "content-type": "application/x-www-form-urlencoded"
+                    "content-type": "application/x-www-form-urlencoded",
+                    Authorization: "Bearer " + token,
                 },
                 body: paramMendatory + paramsChange,
                 method: "POST"
@@ -204,7 +206,7 @@ class StationCard extends React.Component {
 
             return (
                 <form onSubmit={this.handleSubmit}>
-                    <div className="card" id={this.state.station.id}>
+                    <div className="card" key={this.state.station.id}>
                         <button className="btn btn-warning" onClick={() => this.onOffEdit()}>X</button>
 
                         <div className="card-body">
@@ -278,7 +280,7 @@ class StationCard extends React.Component {
                                     {
                                         Object.keys(this.state.facilities).map(function (data, key) {
                                             return (
-                                                <div className="form-check form-check-inline">
+                                                <div className="form-check form-check-inline" key={key}>
                                                     <label className="checkbox">
                                                         <input
                                                             type="checkbox"
@@ -297,6 +299,7 @@ class StationCard extends React.Component {
                                     }
 
                                     <input name="facilities" type="text" className="form-control"
+                                           key={this.state.station.id}
                                            value={JSON.stringify(this.state.facilities)}/>
                                 </div>
                             </div>

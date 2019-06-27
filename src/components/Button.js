@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {buildStationsObject} from "./StationCard";
-import {STATIONS} from "../App";
+import {STATIONS, token} from "../App";
 
 class Button extends React.Component {
     constructor(props) {
@@ -34,7 +34,8 @@ class Button extends React.Component {
         let url = props.url;
         let params = {
             headers: {
-                "content-type": "application/x-www-form-urlencoded"
+                "content-type": "application/x-www-form-urlencoded",
+                Authorization: "Bearer " + token,
             },
             body: props.param,
             method: "POST"
