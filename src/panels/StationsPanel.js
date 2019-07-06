@@ -55,6 +55,11 @@ class StationFilter extends React.Component {
                     class="btn btn-block btn-outline-primary"
                 />
                 <ButtonContainer
+                    name="İstasyon Ara (EPDK)"
+                    menu={<EPDKView key="epdk-view"/>}
+                    class="btn btn-block btn-outline-primary"
+                />
+                <ButtonContainer
                     name="Aktif İstasyonlar"
                     list={STATIONS.active}
                     size={_.size(STATIONS.active)}
@@ -105,6 +110,46 @@ class IdView extends React.Component {
                     </div>
                 </div>
                 {this.state.station ? <StationCard station={this.state.station} key={this.state.station.id}/> : null}
+
+            </div>
+        );
+    }
+
+}
+
+class EPDKView extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            station: null
+        };
+        this.change = this.change.bind(this);
+    }
+
+    change(event) {
+        let getStation = _.filter(STATIONS.all, {licenseNo: event.target.value});
+
+        if (getStation.length) {
+            this.setState({station: getStation[0]});
+        } else {
+            this.setState({station: null});
+        }
+    }
+
+    render() {
+
+        return (
+            <div className="panel panel-b-wide">
+                <div className="form-group row panel-id">
+                    <label className="col-12 col-form-label">EPDK NO</label>
+                    <div className="col-12">
+                        <input name="licenseNo" type="text" className="form-control form-control-lg"
+                               onChange={this.change} defaultValue=""/>
+                    </div>
+                </div>
+                {this.state.station ?
+                    <StationCard station={this.state.station} key={this.state.station.licenseNo}/> : null}
 
             </div>
         );

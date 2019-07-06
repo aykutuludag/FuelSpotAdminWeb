@@ -2,15 +2,15 @@ import React from "react";
 import _ from 'lodash';
 import {COMPANIES, STATIONS, token} from './../App';
 import CheckBox from './CheckBox'
-import IconWC from "../img/bathroom.svg";
-import IconMarket from "../img/shopping-basket.svg";
-import IconCarWash from "../img/gas-station.svg";
-import IconMechanic from "../img/wrench.svg";
-import IconRestaurant from "../img/restaurant.svg";
-import IconTireRepair from "../img/tirerepair.svg";
-import IconParkSpot from "../img/parking-sign.svg";
-import IconATM from "../img/atm.svg"
-import IconMotel from "../img/motel.svg"
+import IconWC from "../img/bathroom.png";
+import IconMarket from "../img/shopping-basket.png";
+import IconCarWash from "../img/gas-station.png";
+import IconMechanic from "../img/wrench.png";
+import IconRestaurant from "../img/restaurant.png";
+import IconTireRepair from "../img/tirerepair.png";
+import IconParkSpot from "../img/parking-sign.png";
+import IconATM from "../img/atm.png"
+import IconMotel from "../img/motel.png"
 
 const ICONS = {
     WC: IconWC,
@@ -57,7 +57,7 @@ const filterDuplicatedStations = (stations, hedef_array) => {
 
         if (stations[i + 1]) {
             let station_2 = stations[i + 1]["location"].split(";");
-            if (getDistanceFromLatLonInKm(station_1[0], station_1[1], station_2[0], station_2[1]) < 50) {
+            if (getDistanceFromLatLonInKm(station_1[0], station_1[1], station_2[0], station_2[1]) < 100) {
                 if (!row) {
                     row = true;
                     hedef_array.push([stations[i], stations[i + 1]]);
@@ -180,7 +180,7 @@ class StationCard extends React.Component {
         const value = target.checked;
         const name = target.name;
 
-        const number = value == false ? "0" : "1";
+        const number = value === false ? "0" : "1";
 
         this.setState(
             prevState => ({
@@ -190,6 +190,7 @@ class StationCard extends React.Component {
                 }
             }),
             () => {
+
                 this.state.station.facilities = "[" + JSON.stringify(this.state.facilities) + "]";
             }
         );
