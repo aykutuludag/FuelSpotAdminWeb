@@ -1,6 +1,6 @@
 import React from "react";
 import {ButtonContainer, STATIONS} from "../App";
-import StationCard from "../components/StationCard";
+import StationCard, {getDistanceFromLatLonInKm} from "../components/StationCard";
 import _ from 'lodash';
 
 function StationsPanel() {
@@ -57,6 +57,11 @@ class StationFilter extends React.Component {
                 <ButtonContainer
                     name="İstasyon Ara (EPDK)"
                     menu={<EPDKView key="epdk-view"/>}
+                    class="btn btn-block btn-outline-primary"
+                />
+                <ButtonContainer
+                    name="İstasyon Ara (Koordinat)"
+                    menu={<CoordinatView key="epdk-view"/>}
                     class="btn btn-block btn-outline-primary"
                 />
                 <ButtonContainer
@@ -150,6 +155,55 @@ class EPDKView extends React.Component {
                 </div>
                 {this.state.station ?
                     <StationCard station={this.state.station} key={this.state.station.licenseNo}/> : null}
+
+            </div>
+        );
+    }
+
+}
+
+class CoordinatView extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            station: null
+        };
+        this.change = this.change.bind(this);
+    }
+
+    change(event) {
+
+        let inputCoordinates = event.target.value.split(";");
+
+        console.log(inputCoordinates);
+
+        for (let i = 0; i < STATIONS.all; i++) {
+            let dummyStation = STATIONS.all[i]["location"].split(";");
+
+            if (getDistanceFromLatLonInKm(inputCoordinates[0], inputCoordinates[1], dummyStation[0], dummyStation[1]) < 100) {
+                let getStation = STATIONS.all[i];
+                this.setState({station: getStation});
+
+                console.log(getStation);
+            }
+            console.log(i);
+        }
+    }
+
+    render() {
+
+        return (
+            <div className="panel panel-b-wide">
+                <div className="form-group row panel-id">
+                    <label className="col-12 col-form-label">Koordinatlar</label>
+                    <div className="col-12">
+                        <input name="coordinates" type="text" className="form-control form-control-lg"
+                               onChange={this.change} defaultValue=""/>
+                    </div>
+                </div>
+                {this.state.station ?
+                    <StationCard station={this.state.station} key={this.state.station.id}/> : null}
 
             </div>
         );

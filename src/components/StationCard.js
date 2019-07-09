@@ -4,13 +4,16 @@ import {COMPANIES, STATIONS, token} from './../App';
 import CheckBox from './CheckBox'
 import IconWC from "../img/bathroom.png";
 import IconMarket from "../img/shopping-basket.png";
-import IconCarWash from "../img/gas-station.png";
+import IconCarWash from "../img/car-wash.png";
 import IconMechanic from "../img/wrench.png";
 import IconRestaurant from "../img/restaurant.png";
 import IconTireRepair from "../img/tirerepair.png";
 import IconParkSpot from "../img/parking-sign.png";
 import IconATM from "../img/atm.png"
 import IconMotel from "../img/motel.png"
+import IconCoffee from "../img/coffee.png"
+import IconMosque from "../img/mosque.png"
+
 
 const ICONS = {
     WC: IconWC,
@@ -22,6 +25,8 @@ const ICONS = {
     ParkSpot: IconParkSpot,
     ATM: IconATM,
     Motel: IconMotel,
+    CoffeeShop: IconCoffee,
+    Mosque: IconMosque,
 };
 
 export const buildStationsObject = (result) => {
@@ -78,13 +83,22 @@ class StationCard extends React.Component {
         this.state = {
             station: this.props.station,
             editmode: false,
-            facilities: JSON.parse(this.props.station.facilities)[0]
+            facilities: JSON.parse(this.props.station.facilities)[0],
+            otherFuels: (this.props.station.otherFuels != null && this.props.station.otherFuels.length > 0) ? JSON.parse(this.props.station.otherFuels)[0] : null,
         };
+
+        if (this.state.facilities.Mosque == null) {
+            this.state.facilities.Mosque = "0";
+        }
+
+        if (this.state.facilities.CoffeeShop == null) {
+            this.state.facilities.CoffeeShop = "0";
+        }
+
         this.onOffEdit = this.onOffEdit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleFacilities = this.handleFacilities.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        console.log(JSON.parse(this.props.station.facilities)[0]);
     }
 
 
@@ -96,7 +110,7 @@ class StationCard extends React.Component {
             document.body.classList.add("loading");
 
             let paramMendatory = 'stationID=' + this.state.station.id;
-            let paramsChange = '&stationName=' + this.state.station.name + '&stationVicinity=' + this.state.station.vicinity + '&country=' + this.state.station.country + '&location=' + this.state.station.location + '&facilities=' + this.state.station.facilities + '&stationLogo=' + this.state.station.logoURL + '&gasolinePrice=' + this.state.station.gasolinePrice + '&dieselPrice=' + this.state.station.dieselPrice + '&lpgPrice=' + this.state.station.lpgPrice + '&electricityPrice=' + this.state.station.electricityPrice + '&licenseNo=' + this.state.station.licenseNo + '&owner=' + this.state.station.owner + '&isVerified=' + this.state.station.isVerified + '&mobilePayment=' + this.state.station.isMobilePaymentAvailable + '&fuelDelivery=' + this.state.station.isDeliveryAvailable + '&isActive=' + this.state.station.isActive;
+            let paramsChange = '&stationName=' + this.state.station.name + '&stationVicinity=' + this.state.station.vicinity + '&country=' + this.state.station.country + '&location=' + this.state.station.location + '&facilities=' + this.state.station.facilities + '&otherFuels=' + this.state.station.otherFuels + '&stationLogo=' + this.state.station.logoURL + '&gasolinePrice=' + this.state.station.gasolinePrice + '&dieselPrice=' + this.state.station.dieselPrice + '&lpgPrice=' + this.state.station.lpgPrice + '&electricityPrice=' + this.state.station.electricityPrice + '&licenseNo=' + this.state.station.licenseNo + '&owner=' + this.state.station.owner + '&isVerified=' + this.state.station.isVerified + '&mobilePayment=' + this.state.station.isMobilePaymentAvailable + '&fuelDelivery=' + this.state.station.isDeliveryAvailable + '&isActive=' + this.state.station.isActive;
 
             let url = 'https://fuelspot.com.tr/api/v1.0/admin/station-update.php';
             let params = {
@@ -121,7 +135,6 @@ class StationCard extends React.Component {
                         });
 
                         buildStationsObject(stations);
-                        console.log(STATIONS);
 
 
                         alert("Kaydedildi");
@@ -154,7 +167,6 @@ class StationCard extends React.Component {
         }));
 
         if (target.name === 'name') {
-
             const company = _.filter(COMPANIES, {companyName: target.value});
 
             this.setState(prevState => ({
@@ -165,7 +177,19 @@ class StationCard extends React.Component {
             }));
         }
 
-
+        if (target.name === "gasoline2" || target.name === "diesel2") {
+            this.setState(
+                prevState => ({
+                    otherFuels: {
+                        ...prevState.otherFuels,
+                        [name]: value
+                    }
+                }),
+                () => {
+                    this.state.station.otherFuels = "[" + JSON.stringify(this.state.otherFuels) + "]";
+                }
+            );
+        }
     }
 
 
@@ -273,8 +297,22 @@ class StationCard extends React.Component {
                                            defaultValue={this.state.station.electricityPrice}/>
                                 </div>
                             </div>
-
-
+                            <div className="form-group row">
+                                <label className="col-sm-3 col-form-label">2. Benzin Fiyatı</label>
+                                <div className="col-sm-9">
+                                    <input name="gasoline2" type="number" className="form-control" step=".01"
+                                           onChange={this.handleInputChange}
+                                           defaultValue={this.state.otherFuels != null ? this.state.otherFuels.gasoline2 : 0}/>
+                                </div>
+                            </div>
+                            <div className="form-group row">
+                                <label className="col-sm-3 col-form-label">2. Dizel Fiyatı</label>
+                                <div className="col-sm-9">
+                                    <input name="diesel2" type="number" className="form-control" step=".01"
+                                           onChange={this.handleInputChange}
+                                           defaultValue={this.state.otherFuels != null ? this.state.otherFuels.diesel2 : 0}/>
+                                </div>
+                            </div>
                             <div className="form-group row">
                                 <label className="col-sm-3 col-form-label">Tesisler</label>
                                 <div className="col-sm-9">
@@ -287,7 +325,7 @@ class StationCard extends React.Component {
                                                             type="checkbox"
                                                             className="on_off"
                                                             name={data}
-                                                            checked={_root.state.facilities[data] === 1}
+                                                            checked={_root.state.facilities[data] === "1"}
                                                             onChange={_root.handleFacilities}
                                                         />
                                                         <img className="btn" src={ICONS[data]}/>
@@ -372,7 +410,7 @@ class StationCard extends React.Component {
                             <li className="list-group-item"><p className="card-text">{this.state.station.vicinity}</p>
                             </li>
                             <li className="list-group-item"><a className="btn-link" href={mapHref}
-                                                           target="_blank">{this.state.station.location}</a></li>
+                                                               target="_blank">{this.state.station.location}</a></li>
                         </ul>
 
 
