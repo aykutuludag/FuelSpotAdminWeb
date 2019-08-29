@@ -126,9 +126,9 @@ const FuelSpotAdmin_LOGGEDIN = connect(mapStateToProps, mapDispatchToProps)(App)
 export class FuelSpot_ADMIN extends React.Component {
     render() {
         return (
-            <Router basename="/admin">
+            <Router basename="./">
                 <Switch>
-                    <PrivateRoute exact path="/" component={FuelSpotAdmin_LOGGEDIN}/>
+                    <PrivateRoute path="/" component={FuelSpotAdmin_LOGGEDIN}/>
                     <Route path='/Login' component={Login}/>
                     <Route component={Login}/>
                 </Switch>

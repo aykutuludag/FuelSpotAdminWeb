@@ -1,7 +1,7 @@
 {
   "name": "fuelspotadmin",
   "version": "1.0.0",
-  "homepage": "http://localhost:3000/admin",
+  "homepage": "./",
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",

@@ -62,7 +62,7 @@ const filterDuplicatedStations = (stations, hedef_array) => {
 
         if (stations[i + 1]) {
             let station_2 = stations[i + 1]["location"].split(";");
-            if (getDistanceFromLatLonInKm(station_1[0], station_1[1], station_2[0], station_2[1]) < 100) {
+            if (getDistanceFromLatLonInKm(station_1[0], station_1[1], station_2[0], station_2[1]) < 50) {
                 if (!row) {
                     row = true;
                     hedef_array.push([stations[i], stations[i + 1]]);
