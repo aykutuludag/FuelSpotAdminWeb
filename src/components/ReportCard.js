@@ -1,20 +1,34 @@
 import React from "react";
 
-function CompanyCard(props) {
-    return (
-        <div className="card">
-            <div className="card-body">
-                <p className="card-text">{props.id}</p>
-                <p className="card-text">{props.username}</p>
-                <p className="card-text">{props.stationID}</p>
-                <p className="card-text">{props.report}</p>
-                <p className="card-text">{props.details}</p>
-                <p className="card-text">{props.prices}</p>
-                <p className="card-text">{props.reportTime}</p>
-                <img className="card-img-top" src={props.photo}/>
+class ReportCard extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div className="card">
+                <div className="card-body">
+                    <b><p>ID</p></b>
+                    <p className="card-text">{this.props.id}</p>
+                    <b><p>Kullanıcı adı</p></b>
+                    <p className="card-text">{this.props.username}</p>
+                    <b><p>İstasyon ID</p></b>
+                    <p className="card-text">{this.props.stationID}</p>
+                    <b><p>Rapor türü</p></b>
+                    <p className="card-text">{this.props.report}</p>
+                    <b><p>Rapor bilgileri</p></b>
+                    <p className="card-text">{this.props.details}</p>
+                    <b><p>Fiyatlar</p></b>
+                    <p className="card-text">{this.props.prices}</p>
+                    <b><p>TARİH</p></b>
+                    <p className="card-text">{this.props.reportTime}</p>
+                    <b><p>FOTOĞRAF</p></b>
+                    <img className="card-img-top" src={this.props.photo}/>
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
-export default CompanyCard
+export default ReportCard

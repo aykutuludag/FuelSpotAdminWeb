@@ -1,58 +1,17 @@
 import ReportCard from "../components/ReportCard";
 import React, {Component} from "react";
 import _ from "lodash";
-import {ButtonContainer, token} from "../App";
-import StationCard from "../components/StationCard";
-
-let REPORTS = {};
-
-const filterReports = () => {
-    REPORTS.all = this.state.reports;
-
-    //Filter Stations
-    REPORTS.active = _.filter(REPORTS.all, {status: "1"});
-    REPORTS.passive = _.filter(REPORTS.all, {status: "0"});
-};
-
-const getReports = () => {
-    document.body.classList.add("loading");
-    let url = 'https://fuelspot.com.tr/api/v1.0/admin/bulk-report-fetch.php';
-    let params = {
-        headers: {
-            "content-type": "application/x-www-form-urlencoded",
-            Authorization: "Bearer " + token,
-        },
-        method: "GET"
-    };
-
-    fetch(url, params)
-        .then(res => res.json())
-        .then(
-            (result) => {
-                document.body.classList.remove("loading");
-                console.log("Raporlar çekildi.", result);
-                this.setState({isLoaded: true});
-                filterReports()
-            },
-            (error) => {
-                document.body.classList.remove("loading");
-                console.log("Raporlar çekilemedi", error);
-                this.setState({isLoaded: true});
-            }
-        );
-};
+import {ButtonContainer, REPORTS} from "../App";
 
 class ReportsPanel extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isLoaded: false,
-        }
+            list: REPORTS.all,
+        };
     }
 
-    componentWillMount() {
-        getReports();
-    }
 
     render() {
         const {isLoaded} = this.state;
@@ -60,23 +19,32 @@ class ReportsPanel extends Component {
             return (
                 <div className="panel panel-wide">
                     <ButtonContainer
-                        name="Aktif raporlar"
-                        list={REPORTS.active}
-                        size={_.size(REPORTS.active)}
-                        menu={<ListView list={REPORTS.active}/>}
+                        name="İnceleme bekliyor"
+                        list={REPORTS.waiting}
+                        size={_.size(REPORTS.waiting)}
+                        menu={<ListView list={REPORTS.waiting}/>}
                         class="btn btn-block btn-primary"
                     />
                     <ButtonContainer
-                        name="Pasif raporlar"
-                        list={REPORTS.passive}
-                        size={_.size(REPORTS.passive)}
-                        menu={<ListView list={REPORTS.passive}/>}
+                        name="Onaylanmış"
+                        list={REPORTS.approved}
+                        size={_.size(REPORTS.approved)}
+                        menu={<ListView list={REPORTS.approved}/>}
+                        class="btn btn-block btn-primary"
+                    />
+                    <ButtonContainer
+                        name="Reddedilmiş"
+                        list={REPORTS.rejected}
+                        size={_.size(REPORTS.rejected)}
+                        menu={<ListView list={REPORTS.rejected}/>}
                         class="btn btn-block btn-primary"
                     />
                 </div>
             );
         }
     }
+
+
 }
 
 class ListView extends React.Component {
@@ -145,7 +113,7 @@ class ListView extends React.Component {
                                                    reportTime={report.reportTime}
                                 />
                             } else {
-                                const duplicatedGroup = report.map((report_deep, subindex) => <StationCard
+                                const duplicatedGroup = report.map((report_deep, subindex) => <ReportCard
                                     key={report_deep.id} station={report_deep}/>);
                                 return <div className="duplicate d-flex flex-row" key={index}>{duplicatedGroup}</div>;
                             }

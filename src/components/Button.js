@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {buildStationsObject} from "./StationCard";
-import {STATIONS, token} from "../App";
+import {STATIONS, token,} from "../App";
 
 class Button extends React.Component {
     constructor(props) {

@@ -18,6 +18,7 @@ import OrdersPanel from "./panels/OrdersPanel"
 import UsersPanel from "./panels/UsersPanel"
 import SuperUsersPanel from "./panels/SuperUsersPanel"
 import ReportsPanel from "./panels/ReportsPanel";
+import _ from "lodash";
 
 export const mapStateToProps = state => ({geod: state.geod});
 export const mapDispatchToProps = {activateGeod};
@@ -25,12 +26,66 @@ export const ButtonContainer = connect(mapStateToProps, mapDispatchToProps)(Butt
 
 export let STATIONS = {};
 export let COMPANIES = {};
+export let LICENSES = {};
+export let REPORTS = {};
 
 export let token;
 
 if (localStorage.getItem('userData') != null) {
     token = JSON.parse(localStorage.getItem('userData'))[0].token;
 }
+
+const filterReports = (reports) => {
+    REPORTS.all = reports;
+
+    //Filter Reports
+    REPORTS.approved = _.filter(REPORTS.all, {status: "1"});
+    REPORTS.waiting = _.filter(REPORTS.all, {status: "0"});
+    REPORTS.rejected = _.filter(REPORTS.all, {status: "-1"});
+};
+
+const getReports = () => {
+    let url = 'https://fuelspot.com.tr/api/v1.0/admin/bulk-report-fetch.php';
+    let params = {
+        headers: {
+            "content-type": "application/x-www-form-urlencoded",
+            Authorization: "Bearer " + token,
+        },
+        method: "GET"
+    };
+
+    fetch(url, params)
+        .then(res => res.json())
+        .then((result) => {
+                console.log("Raporlar çekildi.", result);
+                REPORTS = result;
+                filterReports(REPORTS);
+            }, (error) => {
+                console.log("Raporlar çekilemedi", error);
+            }
+        )
+};
+
+const getMissingLicenses = () => {
+    let url = 'https://fuelspot.com.tr/api/v1.0/admin/missing-licenses.php';
+    let params = {
+        headers: {
+            Authorization: "Bearer " + token,
+        },
+        method: "GET"
+    };
+
+    fetch(url, params)
+        .then(res => res.json())
+        .then(
+            (result) => {
+                LICENSES = result;
+            },
+            (error) => {
+                console.log("Eksik Lisanslar veritabanından çekilemedi.", error);
+            }
+        );
+};
 
 const getCompanies = () => {
     let url = 'https://fuelspot.com.tr/api/v1.0/other/company.php';
@@ -55,7 +110,6 @@ const getCompanies = () => {
 
 function MainPanel() {
     let user = JSON.parse(localStorage.getItem('userData'))[0];
-    getCompanies();
     return (
         <div className="panel panel-wide d-flex align-items-start flex-column text-center py-3">
             <ButtonContainer
@@ -109,6 +163,9 @@ export class App extends React.Component {
             view.push(<MainPanel/>);
             this.props.geod.title = view;
             this.props.geod.type = "panel wide-panel";
+            getMissingLicenses();
+            getCompanies();
+            getReports();
         }
     }
 
