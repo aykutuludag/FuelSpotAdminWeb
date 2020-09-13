@@ -12,12 +12,13 @@ import AutomobilesPanel from "./panels/AutomobilesPanel"
 import CampaignsPanel from "./panels/CampaignsPanel"
 import PurchasesPanel from "./panels/PurchasesPanel"
 import ProfileUpdate from "./panels/ProfileUpdate";
-import CompaniesPanel from "./panels/CompaniesPanel";
 import AccountingPanel from "./panels/AccountingPanel"
-import OrdersPanel from "./panels/OrdersPanel"
+import DistributorsPanel from "./panels/DistributorsPanel"
 import UsersPanel from "./panels/UsersPanel"
 import SuperUsersPanel from "./panels/SuperUsersPanel"
+import FuelBotPanel from "./panels/FuelBotPanel"
 import ReportsPanel from "./panels/ReportsPanel";
+import CommentsPanel from "./panels/CommentsPanel";
 import _ from "lodash";
 
 export const mapStateToProps = state => ({geod: state.geod});
@@ -132,22 +133,20 @@ function MainPanel() {
                 class="btn btn-block btn-primary"
             />
             <ButtonContainer
-                name="Dağıtım firmaları"
-                menu={<CompaniesPanel/>}
-                class="btn btn-block btn-primary"
-            />
-            <ButtonContainer
                 name="Kampanyalar"
                 menu={<CampaignsPanel/>}
                 class="btn btn-block btn-primary"
             />
+            <button type="button" className="btn btn-block btn-primary" onClick={AutomobilesPanel}>Otomobiller</button>
             <button type="button" className="btn btn-block btn-primary" onClick={PurchasesPanel}>Satınalmalar</button>
-            <button type="button" className="btn btn-block btn-primary" onClick={AccountingPanel}>Muhasebe</button>
-            <button type="button" className="btn btn-block btn-primary" onClick={OrdersPanel}>Siparişler</button>
+            <button type="button" className="btn btn-block btn-primary" onClick={CommentsPanel}>Yorumlar</button>
             <button type="button" className="btn btn-block btn-primary" onClick={UsersPanel}>Kullanıcılar</button>
-            <button type="button" className="btn btn-block btn-primary" onClick={SuperUsersPanel}>İstasyon sahipleri
+            <button type="button" className="btn btn-block btn-primary" onClick={SuperUsersPanel}>İstasyon Sahipleri
             </button>
-            <button type="button" className="btn btn-block btn-primary" onClick={AutomobilesPanel}>Araçlar</button>
+            <button type="button" className="btn btn-block btn-primary" onClick={DistributorsPanel}>Distributörler
+            </button>
+            <button type="button" className="btn btn-block btn-primary" onClick={AccountingPanel}>Finans</button>
+            <button type="button" className="btn btn-block btn-primary" onClick={FuelBotPanel}>FuelBot</button>
         </div>
     );
 }

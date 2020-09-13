@@ -1,8 +1,8 @@
 import React from "react";
 import {COMPANIES} from "../App";
-import CompanyCard from "../components/CompanyCard"
+import CompanyCard from "../components/CompanyCard";
 
-function CompaniesPanel() {
+function DistributorsPanel() {
     return (
         <div className="panel panel-wide">
             {
@@ -22,4 +22,4 @@ function CompaniesPanel() {
     );
 }
 
-export default CompaniesPanel
+export default DistributorsPanel

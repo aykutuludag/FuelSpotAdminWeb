@@ -1,50 +1,34 @@
 import ReportCard from "../components/ReportCard";
-import React, {Component} from "react";
+import React from "react";
 import _ from "lodash";
 import {ButtonContainer, REPORTS} from "../App";
 
-class ReportsPanel extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isLoaded: false,
-            list: REPORTS.all,
-        };
-    }
-
-
-    render() {
-        const {isLoaded} = this.state;
-        if (!isLoaded) {
-            return (
-                <div className="panel panel-wide">
-                    <ButtonContainer
-                        name="İnceleme bekliyor"
-                        list={REPORTS.waiting}
-                        size={_.size(REPORTS.waiting)}
-                        menu={<ListView list={REPORTS.waiting}/>}
-                        class="btn btn-block btn-primary"
-                    />
-                    <ButtonContainer
-                        name="Onaylanmış"
-                        list={REPORTS.approved}
-                        size={_.size(REPORTS.approved)}
-                        menu={<ListView list={REPORTS.approved}/>}
-                        class="btn btn-block btn-primary"
-                    />
-                    <ButtonContainer
-                        name="Reddedilmiş"
-                        list={REPORTS.rejected}
-                        size={_.size(REPORTS.rejected)}
-                        menu={<ListView list={REPORTS.rejected}/>}
-                        class="btn btn-block btn-primary"
-                    />
-                </div>
-            );
-        }
-    }
-
-
+function ReportsPanel() {
+    return (
+        <div className="panel panel-wide">
+            <ButtonContainer
+                name="İnceleme bekliyor"
+                list={REPORTS.waiting}
+                size={_.size(REPORTS.waiting)}
+                menu={<ListView list={REPORTS.waiting}/>}
+                class="btn btn-block btn-primary"
+            />
+            <ButtonContainer
+                name="Onaylanmış"
+                list={REPORTS.approved}
+                size={_.size(REPORTS.approved)}
+                menu={<ListView list={REPORTS.approved}/>}
+                class="btn btn-block btn-primary"
+            />
+            <ButtonContainer
+                name="Reddedilmiş"
+                list={REPORTS.rejected}
+                size={_.size(REPORTS.rejected)}
+                menu={<ListView list={REPORTS.rejected}/>}
+                class="btn btn-block btn-primary"
+            />
+        </div>
+    );
 }
 
 class ListView extends React.Component {
@@ -111,6 +95,7 @@ class ListView extends React.Component {
                                                    photo={report.photo}
                                                    prices={report.prices}
                                                    reportTime={report.reportTime}
+                                                   status={report.status}
                                 />
                             } else {
                                 const duplicatedGroup = report.map((report_deep, subindex) => <ReportCard
